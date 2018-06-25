@@ -1,18 +1,11 @@
-const router = require('koa-route');
-const mount = require('koa-mount');
-const auth = require('koa-basic-auth');
-const koa = require('koa');
-const config = require('config');
-const bodyparser = require('koa-bodyparser');
+const express = require('express')
+const path = require('path')
+const PORT = process.env.PORT || 5000
 
-let app = new koa();
-app.use(bodyparser());
-
-app.use(router.get("/api", () => {
-  ctx.body = 'Hola'
-}));
-
-if (!module.parent) {
-  app.listen(3000);
-  console.log("Listening on port 3131.");
-}
+express()
+  .use(express.static(path.join(__dirname, 'public')))
+  .set('views', path.join(__dirname, 'views'))
+  .set('view engine', 'ejs')
+  .get('/', (req, res) => res.render('pages/index'))
+  .get('/hola', (req, res) => {return 'HOLA'})
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
