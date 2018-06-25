@@ -14,6 +14,6 @@ app.use(router.get("/api", () => {
 }));
 
 if (!module.parent) {
-  app.listen(3131);
+  app.listen(80);
   console.log("Listening on port 3131.");
 }
